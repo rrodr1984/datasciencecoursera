@@ -6,6 +6,7 @@
 
 makeCacheMatrix <- function(x = matrix()) {
   
+<<<<<<< HEAD
       #initialize variable
       invm <- NULL
   
@@ -26,6 +27,28 @@ makeCacheMatrix <- function(x = matrix()) {
   
       ## Return a list with the above four functions
       list(set=set, get=get, setinverse=setinverse, getinverse=getinverse)
+=======
+  #initialize variable
+  invm <- NULL
+  
+  #set the value of the matrix
+  set <- function(y) {
+    x <<- y
+    invm <<- NULL
+  }
+  
+  #get the value of the matrix
+  get <- function() x
+  
+  #set the value of inverse of the matrix
+  setinverse <- function(inverse) invm <<- inverse
+  
+  #get the value of inverse of the matrix
+  getinverse <- function() invm
+  
+  # Return a list with the above four functions
+  list(set=set, get=get, setinverse=setinverse, getinverse=getinverse)
+>>>>>>> f857052891a8b884efd271d764377dc345a3ad64
 }
 
 ###############################################################################################
@@ -36,6 +59,7 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
   
+<<<<<<< HEAD
       # This retrieves the cached value for the inverse
       invm <- x$getinverse()
   
@@ -59,5 +83,30 @@ cacheSolve <- function(x, ...) {
   
       ## Return a matrix that is the inverse of 'x'
       invm
+=======
+  # This retrieves the cached value for the inverse
+  invm <- x$getinverse()
+  
+  # Check if the cache is empty and in case it´s not empty, we can recover the inverse matrix from the cache
+  if(!is.null(invm)) {
+    message("getting cached data.")
+    return(invm)
+  }
+  
+  # If the cache was empty. We need to calculate the inverse of matrix 'x', cache it, and finally return its value.
+  # Get value of matrix
+  m <- x$get()
+  
+  #Computing the inverse of a square matrix using the solve function
+  #It´s assume that the matrix supplied is always invertible, 
+  #so if data is a square invertible matrix, then solve(data) returns its inverse
+  invm <- solve(m)
+  
+  # Cache the result
+  x$setinverse(invm)
+  
+  ## Return a matrix that is the inverse of 'x'
+  invm
+>>>>>>> f857052891a8b884efd271d764377dc345a3ad64
         
 }
